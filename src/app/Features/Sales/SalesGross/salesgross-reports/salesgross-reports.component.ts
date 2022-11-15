@@ -129,6 +129,8 @@ export class SalesgrossReportsComponent implements OnInit {
     { id: 21, "columnname": 'ad_model' },
     { id: 22, "columnname": '' },
     { id: 23, "columnname": 'ad_trim' }
+
+    
   ];
 
   //   selectedStoreData=[
