@@ -1,0 +1,133 @@
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="report-controls-popup">
+        <!-- <div  style="border-radius:20px !important"> -->
+        <!-- class="scrollpopup" -->
+        <div>
+            <div class="header d-flex align-items-center">
+                <h5 class="title m-0 ms-2">
+                    <img src="" alt=""> <span class="slash">//</span>REPORT CONTROLS
+                </h5>
+                <a type="button" class="close-btn ms-auto me-2" (click)="close()"><i class="fa-solid fa-xmark"></i> </a>
+            </div>
+            <div class="body">
+                <div class="container-fluid">
+                    <div class="col-12 data-grouping">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <h5 class="mb-1">Month</h5>
+                                    <div class="d-flex align-items-baseline">
+                                        <input [(ngModel)]="month" autocomplete="off" class="form-control date"
+                                            name="date" bsDatepicker [bsConfig]="{dateInputFormat: 'MMMM/YYYY'}"
+                                            (onShown)="onOpenCalendar($event)" placeholder="Calendar"
+                                            (ngModelChange)="changeDate($event)">
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mb-4">
+                                    <h5 class="mb-1">Stores</h5>
+                                    <div class="acc-select">
+                                        <select class="form-select _dropdwn" (change)="StoreFilter($event)"
+                                            [(ngModel)]="selectedStore">
+                                            <option value="0">Select</option>
+                                            <option *ngFor="let s of stores" [value]="s.AS_ID">{{s.DEALER_NAME}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="col-12 slt-trgt">
+                                            <h5></h5>
+                                            <div class="row">
+                                                <div class="col-3">  <button type="button" class="btn btn-primary grp-btn"
+                                                    (click)="multipleorsingle('FT','StoreSummary')"
+                                                    [ngClass]="{'bg-color':FilterTabs.indexOf('StoreSummary')>=0, 'bg-color-wt':FilterTabs.indexOf('StoreSummary')<0}">STORE SUMMARY</button></div>
+                                                <div class="col-4"></div>
+                                                <div class="col-4"></div>
+                                          
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3">  <button type="button" class="btn btn-primary grp-btn"
+                                                    (click)="multipleorsingle('FT','AdjustedEbitda')"
+                                                    [ngClass]="{'bg-color':FilterTabs.indexOf('AdjustedEbitda')>=0, 'bg-color-wt':FilterTabs.indexOf('AdjustedEbitda')<0}">ADJUSTED EBITDA</button></div>
+                                                <div class="col-4"></div>
+                                                <div class="col-4"></div>
+                                          
+                                                </div>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <button type="button" class="btn btn-primary grp-btn"
+                                                    (click)="multipleorsingle('FT','ExpenseTrend')"
+                                                    [ngClass]="{'bg-color':FilterTabs.indexOf('ExpenseTrend')>=0, 'bg-color-wt':FilterTabs.indexOf('ExpenseTrend')<0}">EXPENSE TREND</button>
+                                                </div>
+                                                <div class="col-4" *ngIf="FilterTabs.indexOf('ExpenseTrend')>=0">
+                                                    <button type="button" class="btn btn-primary grp-btn"
+                                                    (click)="multipleorsingle('SFT','VariableTrendsvsBudget')"
+                                                    [ngClass]="{'bg-color':SubFiltersTab.indexOf('VariableTrendsvsBudget')>=0, 'bg-color-wt':SubFiltersTab.indexOf('VariableTrendsvsBudget')<0}">VARIABLE TRENDS VS. BUDGET</button>
+                                                </div>
+                                                <div class="col-4" *ngIf="FilterTabs.indexOf('ExpenseTrend')>=0">
+                                                    <button type="button" style="pointer-events: none; opacity: 0.3;" class="btn btn-primary grp-btn"
+                                                    (click)="multipleorsingle('SFT','VariableTrendsvsStores')"
+                                                    [ngClass]="{'bg-color':SubFiltersTab.indexOf('VariableTrendsvsStores')>=0, 'bg-color-wt':SubFiltersTab.indexOf('VariableTrendsvsStores')<0}">VARIABLE TRENDS VS. STORES</button>
+                                                </div>
+                                         
+                                                </div>
+                                            <div class="row">
+                                                <div class="col-3">  <button type="button" class="btn btn-primary grp-btn"
+                                                    (click)="multipleorsingle('FT','VariableKPI')"
+                                                    [ngClass]="{'bg-color':FilterTabs.indexOf('VariableKPI')>=0, 'bg-color-wt':FilterTabs.indexOf('VariableKPI')<0}">VARIABLE KPI</button></div>
+                                                    <div class="col-4" *ngIf="FilterTabs.indexOf('VariableKPI')>=0">
+                                                        <button type="button" class="btn btn-primary grp-btn"
+                                                        (click)="multipleorsingle('SFT','VariableTrendsvsBudget')"
+                                                        [ngClass]="{'bg-color':SubFiltersTab.indexOf('VariableTrendsvsBudget')>=0, 'bg-color-wt':SubFiltersTab.indexOf('VariableTrendsvsBudget')<0}">VARIABLE TRENDS VS. BUDGET</button>
+                                                    </div>
+                                                    <div class="col-4" *ngIf="FilterTabs.indexOf('VariableKPI')>=0">
+                                                        <button type="button" style="pointer-events: none; opacity: 0.3;" class="btn btn-primary grp-btn"
+                                                        (click)="multipleorsingle('SFT','VariableTrendsvsStores')"
+                                                        [ngClass]="{'bg-color':SubFiltersTab.indexOf('VariableTrendsvsStores')>=0, 'bg-color-wt':SubFiltersTab.indexOf('VariableTrendsvsStores')<0}">VARIABLE TRENDS VS. STORES</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-8">
+                                        <div class="col-12 slt-trgt">
+                                            <h5></h5>
+                                            <div class="row">&nbsp;</div>
+                                            <div class="row">&nbsp;</div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                               
+                                               </div>
+                                               <div class="col-6">
+                                         
+                                                </div>
+                                            </div>
+
+                                          
+                                        </div>
+                                    </div> -->
+                                 
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="col-12 d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary me-1" (click)="viewreport()">View Report</button>
+                    <button type="button" class="btn btn-primary ms-1" style="cursor:default;opacity: 0.2;"
+                        (click)="save()">Save to Favorites</button>
+                    <a class="cancel-txt" (click)="close()">Cancel</a>
+
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+</div>

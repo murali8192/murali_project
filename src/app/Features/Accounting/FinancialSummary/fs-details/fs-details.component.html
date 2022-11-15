@@ -1,0 +1,58 @@
+<div class="container-fluid d-flex justify-content-center align-items-center" >
+  <div class="gross-popup">
+    <div class="header d-flex align-items-center">
+      <h5 class="title m-0 ms-2">
+        <img src="" alt=""> <span class="slash">//</span>{{Fsdetails.NAME}}
+      </h5>
+      <img src="../../../../assets/images/Export.png" (click)="exportAsXLSX()" class="img-fluid ms-auto me-2" alt=""  style="cursor: pointer;">
+      <a type="button" class="close-btn ms-auto me-0" (click)="close()"><i class="fa-solid fa-xmark"></i> </a>
+    </div>
+
+   
+    
+    <div class="content"  >
+      <div class="loading">
+          <div class="loader" *ngIf="spinnerLoader"></div>
+      </div>
+      <div class="d-flex" id="Details" style="width: 100%;">
+        
+        <div class="deal-tbl" style="min-height: 70vh;" (scroll)="updateVerticalScroll($event)">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th>Store Name #</th>
+                <th>Account ID</th>
+                <th>Date</th>
+                <th>Balance</th>
+                <!-- <th>GLJE Detail ID</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let Fsd of FSDetailsData; let i = index ">
+                <td>
+                  {{ (Fsd.Store_Name == 0 || Fsd.Store_Name == null || Fsd.Store_Name == undefined ? '-' :  Fsd.Store_Name ) }}
+                </td>
+                <td>
+                  {{ (Fsd.Account_ID == 0 || Fsd.Account_ID == null || Fsd.Account_ID == undefined ? '-' : Fsd.Account_ID  ) }}
+                </td>
+                <td>
+                  {{ (Fsd.DateVal == 0 || Fsd.DateVal == null || Fsd.DateVal == undefined ? '-' : Fsd.DateVal)   }}
+                </td>
+                <td [ngClass]="{ negative:!inTheGreen(Fsd.Balance)}">
+                  {{ (Fsd.Balance == 0 || Fsd.Balance == null || Fsd.Balance == undefined ? '-' : Fsd.Balance | currency: 'USD':'symbol':'1.0-0' ) }}
+                </td>
+                <!-- <td>
+                  {{ (Fsd.GLJEDetailID == 0 || Fsd.GLJEDetailID == null || Fsd.GLJEDetailID == undefined ? '-' : Fsd.GLJEDetailID  ) }}
+                </td> -->
+              </tr>
+                <!-- <tr *ngIf="NoData">
+                  <td colspan="5">No Data Found!!!</td>    
+                </tr> -->
+                
+            </tbody>
+          </table>                       
+        </div>       
+      </div>
+    </div>
+  </div>
+</div>
